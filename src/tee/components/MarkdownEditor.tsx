@@ -125,14 +125,15 @@ export function MarkdownEditor({
   const userDoc = account?.contactHandle?.docSync();
 
     // Initialize userMetadata as a ref
-    const userMetadataRef = useRef({name: "Anonymous", color: "pink", userId});
+    const userMetadataRef = useRef({name: "Anonymous", userId});
 
     useEffect(() => {
       if (userDoc) {
         if (userDoc.type === "registered") {
-          const { color, name } = userDoc;
+          const { name } = userDoc;
           // Update the ref directly
-          userMetadataRef.current = { ...userMetadataRef.current, color, name, userId };
+          // userMetadataRef.current = { ...userMetadataRef.current, color: 'green', name, userId };
+          userMetadataRef.current = { ...userMetadataRef.current, name, userId };
         } else {
           userMetadataRef.current = { ...userMetadataRef.current, userId };
         }

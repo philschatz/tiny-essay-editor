@@ -22,6 +22,10 @@ import { CursorWidget } from "./CursorWidget";
 
 export const setPeerSelectionData = StateEffect.define<UserSelectionData[]>();
 
+
+const colors = ['pink', 'green', 'yellow', 'red', 'blue']
+const userColorCache = {}
+
 // State field to track remote selections and cursors
 const remoteStateField = StateField.define<DecorationSet>({
   create() {
@@ -33,6 +37,13 @@ const remoteStateField = StateField.define<DecorationSet>({
         decorations = Decoration.none;
         effect.value.forEach(({user, selection}) => {
           if (!user || !selection) { console.log("missing", user, selection); return }
+
+          // HACK: Pick a random color for the user
+          if (!userColorCache[user.name]) {
+            userColorCache[user.name] = colors[Math.round(Math.random() * colors.length)]
+          }
+          user.color = userColorCache[user.name]
+
           // Make a widget for the cursor position.
           const widget = Decoration.widget({
             widget: new CursorWidget(user.name, user.color),
