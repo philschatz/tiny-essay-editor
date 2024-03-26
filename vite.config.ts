@@ -89,6 +89,7 @@ export default defineConfig({
   },
 
   build: {
+    sourcemap: true,
     rollupOptions: {
       output: {
         // We put index.css in dist instead of dist/assets so that we can link to fonts
