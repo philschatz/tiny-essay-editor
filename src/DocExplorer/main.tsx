@@ -12,7 +12,7 @@ import { getAccount } from "./account.js";
 const repo = new Repo({
   network: [
     new BroadcastChannelNetworkAdapter(),
-    new BrowserWebSocketClientAdapter("wss://sync.automerge.org"),
+    new BrowserWebSocketClientAdapter(import.meta.env?.VITE_SYNC_SERVER_URL ?? "wss://sync.automerge.org"),
   ],
   storage: new IndexedDBStorageAdapter(),
   changeMetadata: () => ({ author, time: Date.now() }),
